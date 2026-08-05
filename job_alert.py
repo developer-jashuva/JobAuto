@@ -31,20 +31,24 @@ import requests
 ROLE_KEYWORDS = [
     ".net", "dotnet", "asp.net", "c#",
     "react", "react.js", "reactjs",
-    "python",
+    "python","developer", "software engineer", "software developer",
+    "javascript", "full stack", "backend", "frontend",
+    "developer trainee", "software engineer trainee", "software developer trainee",
     "ai", "artificial intelligence", "machine learning", "ml engineer",
 ]
 
-LOCATION_KEYWORDS = ["hyderabad", "remote", "work from home", "wfh"]
+LOCATION_KEYWORDS = ["hyderabad", "india", "work from home", "wfh"]
 
 FRESHER_KEYWORDS = [
     "fresher", "entry level", "entry-level", "graduate", "trainee",
     "junior", "0-1 year", "0-2 years", "campus", "associate engineer",
+    "intern", "internship", "new grad", "new graduate",
+    "no experience", "recent graduate", "graduate engineer",
 ]
 
 # Indeed RSS search queries — add/remove (query, location) pairs as you like.
 INDEED_QUERIES = [
-    ("react OR python OR .net OR AI fresher", "Hyderabad"),
+    ("react OR python OR .net OR AI fresher OR developer OR trainee OR engineer", "Hyderabad"),
     ("react OR python OR .net OR AI fresher", "Remote"),
 ]
 
