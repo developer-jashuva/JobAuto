@@ -29,12 +29,27 @@ import requests
 # ---------------------------------------------------------------------------
 
 ROLE_KEYWORDS = [
+    # .NET & C#
     ".net", "dotnet", "asp.net", "c#",
-    "react", "react.js", "reactjs",
-    "python","developer", "software engineer", "software developer",
-    "javascript", "full stack", "backend", "frontend",
-    "developer trainee", "software engineer trainee", "software developer trainee",
-    "ai", "artificial intelligence", "machine learning", "ml engineer",
+    
+    # Python
+    "python", "django", "flask", "fastapi",
+    
+    # Java
+    "java", "spring", "spring boot",
+    
+    # Full Stack, Frontend, Backend
+    "full stack", "fullstack", "full-stack",
+    "frontend", "front end", "front-end", "react", "angular", "vue",
+    "backend", "back end", "back-end",
+    
+    # Automation Testing & QA
+    "automation testing", "qa automation", "sdet", "automation engineer",
+    "test automation", "qa engineer", "software tester", "testing",
+    
+    # General Software Development & Testing
+    "software engineer", "software developer", "developer", "engineer",
+    "developer trainee", "software engineer trainee", "associate engineer",
 ]
 
 LOCATION_KEYWORDS = ["hyderabad", "india", "work from home", "wfh"]
@@ -46,10 +61,17 @@ FRESHER_KEYWORDS = [
     "no experience", "recent graduate", "graduate engineer",
 ]
 
+# Non-IT / Non-Dev Roles to explicitly exclude/skip
+EXCLUDE_KEYWORDS = [
+    "bpo", "call center", "telecaller", "customer support", "voice process",
+    "non voice", "sales", "marketing", "data entry", "business development",
+    "hr recruiter", "content writer", "accountant", "digital marketing"
+]
+
 # Indeed RSS search queries — add/remove (query, location) pairs as you like.
 INDEED_QUERIES = [
-    ("react OR python OR .net OR AI fresher OR developer OR trainee OR engineer", "Hyderabad"),
-    ("react OR python OR .net OR AI fresher", "Remote"),
+   ('.net OR python OR java OR "full stack" OR "automation testing" OR "software developer"', "Hyderabad"),
+    ('.net OR python OR java OR "full stack" OR "automation testing" OR "software developer"', "Remote"),
 ]
 
 SEEN_FILE = Path(__file__).parent / "seen_jobs.json"
@@ -81,6 +103,8 @@ def text_matches(*fields, keywords):
 
 
 def job_is_relevant(title, description, location):
+    if text_matches(title, description, keywords=EXCLUDE_KEYWORDS):
+        return False
     role_ok = text_matches(title, description, keywords=ROLE_KEYWORDS)
     loc_ok = text_matches(title, description, location, keywords=LOCATION_KEYWORDS)
     return role_ok and loc_ok
